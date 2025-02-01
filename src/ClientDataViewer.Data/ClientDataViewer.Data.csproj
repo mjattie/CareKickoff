@@ -11,4 +11,19 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Include="..\..\Data\careplans.json">
+        <Link>Data\careplans.json</Link>
+      </EmbeddedResource>
+      <EmbeddedResource Include="..\..\Data\clients.json">
+        <Link>Data\clients.json</Link>
+      </EmbeddedResource>
+      <EmbeddedResource Include="..\..\Data\employees.json">
+        <Link>Data\employees.json</Link>
+      </EmbeddedResource>
+      <EmbeddedResource Include="..\..\Data\reports.json">
+        <Link>Data\reports.json</Link>
+      </EmbeddedResource>
+    </ItemGroup>
+
 </Project>
