@@ -5,7 +5,7 @@ namespace ClientDataViewer.Data;
 
 public abstract class RepositoryWithJsonFileSource<TEntity>
 {
-    private readonly TEntity[] _entities;
+    protected readonly TEntity[] Entities;
     protected RepositoryWithJsonFileSource(string fileName)
     {
         var assembly = Assembly.GetExecutingAssembly();
@@ -14,11 +14,11 @@ public abstract class RepositoryWithJsonFileSource<TEntity>
         {
             throw new FileNotFoundException($"{fileName} not found");
         }
-        _entities = JsonSerializer.Deserialize<TEntity[]>(stream) ?? [];
+        Entities = JsonSerializer.Deserialize<TEntity[]>(stream) ?? [];
     }
     
     public TEntity[] Get()
     {
-        return _entities;
+        return Entities;
     }
 }

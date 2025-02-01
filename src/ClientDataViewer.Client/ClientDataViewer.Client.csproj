@@ -19,4 +19,8 @@
     <ProjectReference Include="..\ClientDataViewer.Data\ClientDataViewer.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

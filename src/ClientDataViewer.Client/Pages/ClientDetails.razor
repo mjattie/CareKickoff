@@ -1,0 +1,66 @@
+﻿@using ClientDataViewer.Data.CarePlan
+@using ClientDataViewer.Data.Client
+@using ClientDataViewer.Data.Employee
+@using ClientDataViewer.Data.Report
+@using Microsoft.AspNetCore.Authorization
+@page "/clients/{clientId}"
+@attribute [Authorize]
+<MudText Typo="Typo.h3">@_client.FullName's Details</MudText>
+<MudGrid>
+    <MudItem lg="6">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h4">Reports</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            @if (!_reports.Any())
+            {
+                <MudText Typo="@Typo.body1" Color="Color.Warning">No Reports documented for @_client.FirstName</MudText>
+            }
+            @foreach (var report in _reports)
+            {
+                <MudText Typo="Typo.h6">
+                    @if (report.HasPriority)
+                    {
+                        <MudIcon Color="Color.Error" Icon="@Icons.Material.Filled.PriorityHigh"></MudIcon>
+                    }
+                    @report.Subject
+                </MudText>
+                <MudText Typo="Typo.body1">@report.Text</MudText>
+                <MudText Typo="Typo.body1">@report.CreatedAt - @report.CreatedBy</MudText>
+                <MudDivider DividerType="DividerType.FullWidth"/>
+            }
+        </MudCardContent>
+    </MudItem>
+    @* Careplan *@
+    <MudItem lg="6">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h4">Careplans</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            @if (!_carePlans.Any())
+            {
+                <MudText Typo="@Typo.caption" Color="Color.Warning">No Careplans documented for @_client.FirstName</MudText>
+            }
+            @foreach (var carePlan in _carePlans)
+            {
+                <MudText Typo="Typo.h6">
+                    @carePlan.DisplayName
+                </MudText>
+                <MudStack>
+                    @foreach (var goal in @carePlan.Goals)
+                    {
+                        <MudText Typo="Typo.body1">@goal.DisplayName</MudText>
+                        <MudDivider DividerType="DividerType.FullWidth"/>
+                    }
+                </MudStack>
+            }
+        </MudCardContent>
+    </MudItem>
+</MudGrid>
+<MudItem xs="12">
+    <MudButton Href="@("/clients")" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Default">Go Back</MudButton>
+</MudItem>
