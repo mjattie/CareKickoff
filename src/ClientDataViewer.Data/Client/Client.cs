@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace ClientDataViewer.Data.Client;
+﻿namespace ClientDataViewer.Data.Client;
 
 public record Client(string FirstName, string LastName, DateTime BirthDate, string Gender, string NativeId)
 {

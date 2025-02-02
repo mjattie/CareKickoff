@@ -1,7 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using ClientDataViewer.Data
-@using ClientDataViewer.Data.Authentication
-
+﻿@using ClientDataViewer.Data.Authentication
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 
 <MudNavMenu>
@@ -23,4 +21,5 @@
     {
         hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
     }
+
 }

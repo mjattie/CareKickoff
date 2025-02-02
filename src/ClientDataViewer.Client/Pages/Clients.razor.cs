@@ -17,6 +17,4 @@ public partial class Clients
     {
         _clients = await _httpClient.GetAll();
     }
-    
-    
 }

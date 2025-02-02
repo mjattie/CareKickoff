@@ -1,10 +1,6 @@
-﻿@using Microsoft.AspNetCore.Authentication
+﻿@using ClientDataViewer.Data.Authentication
+@using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
-@using MudBlazor
-@using ClientDataViewer.Data
-@using ClientDataViewer.Data.Authentication
-@using MudBlazor.StaticInput
-
 @inject SignInManager<ApplicationUser> SignInManager
 @inject IdentityRedirectManager RedirectManager
 
@@ -20,8 +16,8 @@ else
 {
     <form class="form-horizontal" action="Account/PerformExternalLogin" method="post">
         <div>
-            <AntiforgeryToken />
-            <input type="hidden" name="ReturnUrl" value="@ReturnUrl" />
+            <AntiforgeryToken/>
+            <input type="hidden" name="ReturnUrl" value="@ReturnUrl"/>
             <p>
                 @foreach (var provider in externalLogins)
                 {
@@ -35,11 +31,11 @@ else
 @code {
     private AuthenticationScheme[] externalLogins = [];
 
-    [SupplyParameterFromQuery]
-    private string? ReturnUrl { get; set; }
+    [SupplyParameterFromQuery] private string? ReturnUrl { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         externalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToArray();
     }
+
 }

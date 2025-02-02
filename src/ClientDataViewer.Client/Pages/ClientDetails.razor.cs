@@ -7,15 +7,17 @@ namespace ClientDataViewer.Client.Pages;
 public partial class ClientDetails
 {
     private readonly ClientDataViewerHttpClient _httpClient;
-    [Parameter] public string ClientId { get; set; }
-    private ClientDto _client;
     private CarePlanDto[] _carePlans = [];
-    private ReportDto[] _reports = [];
+    private ClientDto _client;
     private bool _notFound;
+    private ReportDto[] _reports = [];
+
     public ClientDetails(ClientDataViewerHttpClient httpClient)
     {
         _httpClient = httpClient;
     }
+
+    [Parameter] public string ClientId { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
@@ -26,6 +28,7 @@ public partial class ClientDetails
             _notFound = true;
             return;
         }
+
         _client = clientDetails.Client;
         _carePlans = clientDetails.CarePlans.ToArray();
         _reports = clientDetails.Reports.ToArray();

@@ -1,9 +1,7 @@
 ﻿@page "/Account/Manage/TwoFactorAuthentication"
-
+@using ClientDataViewer.Data.Authentication
 @using Microsoft.AspNetCore.Http.Features
 @using Microsoft.AspNetCore.Identity
-@using ClientDataViewer.Data
-@using ClientDataViewer.Data.Authentication
 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
@@ -14,7 +12,7 @@
 
 <MudText Typo="Typo.h6" GutterBottom="true">Two-factor authentication (2FA)</MudText>
 
-<StatusMessage />
+<StatusMessage/>
 
 @if (canTrack)
 {
@@ -49,13 +47,14 @@
         if (isMachineRemembered)
         {
             <form style="display: inline-block" @formname="forget-browser" @onsubmit="OnSubmitForgetBrowserAsync" method="post">
-                <AntiforgeryToken />
-                
+                <AntiforgeryToken/>
+
                 <MudStaticButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" FormAction="FormAction.Submit">Forget this browser</MudStaticButton>
             </form>
         }
 
-        <MudLink Href="Account/Manage/Disable2fa">Disable 2FA</MudLink><br />
+        <MudLink Href="Account/Manage/Disable2fa">Disable 2FA</MudLink>
+        <br/>
         <MudLink Href="Account/Manage/GenerateRecoveryCodes">Reset recovery codes</MudLink>
     }
 
@@ -63,11 +62,13 @@
 
     @if (!hasAuthenticator)
     {
-        <MudLink Href="Account/Manage/EnableAuthenticator">Add authenticator app</MudLink><br />
+        <MudLink Href="Account/Manage/EnableAuthenticator">Add authenticator app</MudLink>
+        <br/>
     }
     else
     {
-        <MudLink Href="Account/Manage/EnableAuthenticator">Set up authenticator app</MudLink><br />
+        <MudLink Href="Account/Manage/EnableAuthenticator">Set up authenticator app</MudLink>
+        <br/>
         <MudLink Href="Account/Manage/ResetAuthenticator">Reset authenticator app</MudLink>
     }
 }
@@ -87,8 +88,7 @@ else
     private bool is2faEnabled;
     private bool isMachineRemembered;
 
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
+    [CascadingParameter] private HttpContext HttpContext { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -108,4 +108,5 @@ else
             "The current browser has been forgotten. When you login again from this browser you will be prompted for your 2fa code.",
             HttpContext);
     }
+
 }

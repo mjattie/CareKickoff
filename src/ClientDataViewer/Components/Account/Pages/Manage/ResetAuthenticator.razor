@@ -1,8 +1,6 @@
 ﻿@page "/Account/Manage/ResetAuthenticator"
-
-@using Microsoft.AspNetCore.Identity
-@using ClientDataViewer.Data
 @using ClientDataViewer.Data.Authentication
+@using Microsoft.AspNetCore.Identity
 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
@@ -14,7 +12,7 @@
 
 <MudText Typo="Typo.h6" GutterBottom="true">Reset authenticator key</MudText>
 
-<StatusMessage />
+<StatusMessage/>
 
 <MudAlert Severity="Severity.Warning" Variant="Variant.Text">
     If you reset your authenticator key your authenticator app will not work until you reconfigure it.
@@ -26,14 +24,13 @@
 </MudText>
 
 <form @formname="reset-authenticator" @onsubmit="OnSubmitAsync" method="post">
-    <AntiforgeryToken />
+    <AntiforgeryToken/>
 
     <MudStaticButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" FormAction="FormAction.Submit">Reset authenticator key</MudStaticButton>
 </form>
 
 @code {
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
+    [CascadingParameter] private HttpContext HttpContext { get; set; } = default!;
 
     private async Task OnSubmitAsync()
     {
@@ -50,4 +47,5 @@
             "Your authenticator app key has been reset, you will need to configure your authenticator app using the new key.",
             HttpContext);
     }
+
 }

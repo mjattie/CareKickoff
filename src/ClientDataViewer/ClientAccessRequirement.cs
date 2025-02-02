@@ -2,4 +2,6 @@
 
 namespace ClientDataViewer;
 
-public class ClientAccessRequirement : IAuthorizationRequirement { }
+public class ClientAccessRequirement : IAuthorizationRequirement
+{
+}

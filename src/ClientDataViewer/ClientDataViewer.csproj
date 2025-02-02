@@ -1,32 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-ClientDataViewer-8970b56e-9535-40e5-884f-ea458e936eb3</UserSecretsId>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>aspnet-ClientDataViewer-8970b56e-9535-40e5-884f-ea458e936eb3</UserSecretsId>
+    </PropertyGroup>
 
 
-  <ItemGroup>
-    <ProjectReference Include="..\ClientDataViewer.Client\ClientDataViewer.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.*" />
-    <PackageReference Include="Extensions.MudBlazor.StaticInput" Version="3.*" />
-    <ProjectReference Include="..\ClientDataViewer.Data\ClientDataViewer.Data.csproj" />
-    <ProjectReference Include="..\ClientDataViewer.Domain\ClientDataViewer.Domain.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.*"/>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.*"/>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.*"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.*"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.*"/>
+        <PackageReference Include="Extensions.MudBlazor.StaticInput" Version="3.*"/>
+        <ProjectReference Include="..\ClientDataViewer.Client\ClientDataViewer.Client.csproj"/>
+        <ProjectReference Include="..\ClientDataViewer.Data\ClientDataViewer.Data.csproj"/>
+        <ProjectReference Include="..\ClientDataViewer.Domain\ClientDataViewer.Domain.csproj"/>
+    </ItemGroup>
 
 
-  <ItemGroup>
-    <None Update="Data\app.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Update="Data\app.db">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        </None>
+    </ItemGroup>
 
 </Project>

@@ -21,9 +21,9 @@ public class ClientAccessHandler : AuthorizationHandler<ClientAccessRequirement,
             context.Fail();
             return;
         }
-        
+
         var allowedClients = _employeeRepository.GetEmployeeUserIdsByUserEmail(email);
-        
+
         if (allowedClients.Any(c => c == clientId))
         {
             context.Succeed(requirement);

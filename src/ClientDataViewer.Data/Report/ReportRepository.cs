@@ -4,6 +4,6 @@ public sealed class ReportRepository() : RepositoryWithJsonFileSource<Report>("r
 {
     public Report[] GetByClientId(string clientId)
     {
-        return this.Entities.Where(x => x.ClientId == clientId).ToArray();
+        return Entities.Where(x => x.ClientId == clientId).ToArray();
     }
 }

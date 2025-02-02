@@ -1,6 +1,4 @@
-﻿using System.Net;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace ClientDataViewer.Shared;
 
@@ -10,10 +8,11 @@ public static class ServiceCollectionExtensions
     {
         // services.AddTransient<BaseAddressAuthorizationMessageHandler>();
         services.AddTransient<CookieHandler>();
-        services.AddHttpClient<ClientDataViewerHttpClient>(configureClient => configureClient.BaseAddress = new Uri(baseAddress))
+        services.AddHttpClient<ClientDataViewerHttpClient>(configureClient =>
+                configureClient.BaseAddress = new Uri(baseAddress))
             // .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
             .AddHttpMessageHandler<CookieHandler>();
-        
+
         return services;
     }
 }

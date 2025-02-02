@@ -9,12 +9,13 @@ namespace ClientDataViewer.Domain;
 
 public class ClientService : IClientService
 {
-    private readonly IClientRepository _clientRepository;
-    private readonly IReportRepository _reportRepository;
     private readonly ICarePlanRepository _carePlanRepository;
+    private readonly IClientRepository _clientRepository;
     private readonly IEmployeeRepository _employeeRepository;
+    private readonly IReportRepository _reportRepository;
 
-    public ClientService(IClientRepository clientRepository, IReportRepository reportRepository, ICarePlanRepository carePlanRepository, IEmployeeRepository employeeRepository)
+    public ClientService(IClientRepository clientRepository, IReportRepository reportRepository,
+        ICarePlanRepository carePlanRepository, IEmployeeRepository employeeRepository)
     {
         _clientRepository = clientRepository;
         _reportRepository = reportRepository;
@@ -35,7 +36,7 @@ public class ClientService : IClientService
         var carePlans = _carePlanRepository.GetByClientId(clientId);
         return new ClientDetailDto(client.ToDto(), carePlans.ToDto(), reports.ToDto());
     }
-    
+
     public IEnumerable<ClientDto> GetClients()
     {
         return _clientRepository.Get().ToDto();

@@ -1,5 +1,4 @@
 ﻿using ClientDataViewer.Domain;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,8 +8,8 @@ namespace ClientDataViewer.Api;
 [Route("api/[controller]")]
 public class ClientsController : Controller
 {
-    private readonly IClientService _clientService;
     private readonly IAuthorizationService _authorizationService;
+    private readonly IClientService _clientService;
 
     public ClientsController(IClientService clientService, IAuthorizationService authorizationService)
     {
@@ -22,25 +21,20 @@ public class ClientsController : Controller
     [Authorize]
     public IActionResult GetClients()
     {
-        if (User.Identity?.Name is null)
-        {
-            return Forbid();
-        }
-        
+        if (User.Identity?.Name is null) return Forbid();
+
         return Ok(_clientService.GetUserClients(User.Identity.Name));
     }
-    
+
     [HttpGet("{id}")]
     [Authorize]
     public async Task<IActionResult> Details(string id)
     {
         var authorizationResult = await _authorizationService.AuthorizeAsync(User, id, "ClientAccess");
         if (!authorizationResult.Succeeded)
-        {
             // should be Forbid, but this causes a redirect in the client side api caller
             return NotFound();
-        }
-        
+
         return Ok(_clientService.GetClientDetails(id));
     }
 }

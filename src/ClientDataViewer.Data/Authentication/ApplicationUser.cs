@@ -5,4 +5,3 @@ namespace ClientDataViewer.Data.Authentication;
 public class ApplicationUser : IdentityUser
 {
 }
-

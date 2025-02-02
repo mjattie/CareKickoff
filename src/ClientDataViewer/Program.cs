@@ -1,8 +1,4 @@
 using ClientDataViewer;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using MudBlazor.Services;
 using ClientDataViewer.Components;
 using ClientDataViewer.Components.Account;
 using ClientDataViewer.Data;
@@ -10,6 +6,11 @@ using ClientDataViewer.Data.Authentication;
 using ClientDataViewer.Domain;
 using ClientDataViewer.Shared;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
+using _Imports = ClientDataViewer.Client._Imports;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,7 +81,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseExceptionHandler("/Error", true);
     app.UseHsts();
 }
 
@@ -92,7 +93,7 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(ClientDataViewer.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(_Imports).Assembly);
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
 app.MapControllers();

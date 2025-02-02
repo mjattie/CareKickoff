@@ -1,6 +1,4 @@
-﻿using ClientDataViewer.Shared.Models;
-
-namespace ClientDataViewer.Data.Client;
+﻿namespace ClientDataViewer.Data.Client;
 
 public interface IClientRepository
 {

@@ -6,6 +6,7 @@ namespace ClientDataViewer.Data;
 public abstract class RepositoryWithJsonFileSource<TEntity>
 {
     protected readonly TEntity[] Entities;
+
     protected RepositoryWithJsonFileSource(string fileName)
     {
         var assembly = Assembly.GetExecutingAssembly();
@@ -16,7 +17,7 @@ public abstract class RepositoryWithJsonFileSource<TEntity>
         }
         Entities = JsonSerializer.Deserialize<TEntity[]>(stream) ?? [];
     }
-    
+
     public TEntity[] Get()
     {
         return Entities;
