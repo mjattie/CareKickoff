@@ -1,3 +1,4 @@
+using ClientDataViewer;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,9 @@ using ClientDataViewer.Components;
 using ClientDataViewer.Components.Account;
 using ClientDataViewer.Data;
 using ClientDataViewer.Data.Authentication;
+using ClientDataViewer.Domain;
+using ClientDataViewer.Shared;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,7 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -30,7 +35,16 @@ builder.Services.AddAuthentication(options =>
     })
     .AddIdentityCookies();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ClientAccess", policy =>
+        policy.Requirements.Add(new ClientAccessRequirement()));
+});
+builder.Services.AddControllers();
+
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -42,6 +56,10 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddRepositories();
+builder.Services.AddSingleton<IAuthorizationHandler, ClientAccessHandler>();
+builder.Services.AddSharedServices("https://localhost:7075"); //todo get from config
+builder.Services.AddScoped<IClientService, ClientService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -60,14 +78,13 @@ app.UseHttpsRedirection();
 
 
 app.UseAntiforgery();
-
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(ClientDataViewer.Client._Imports).Assembly);
-
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+app.MapControllers();
 
 app.Run();

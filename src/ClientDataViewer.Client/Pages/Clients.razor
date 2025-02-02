@@ -1,17 +1,20 @@
 ﻿@page "/"
 @page "/clients"
-@using ClientDataViewer.Data.Client
+@using ClientDataViewer.Shared.Models
 @using Microsoft.AspNetCore.Authorization
 
 @attribute [Authorize]
 
-<PageTitle>Auth</PageTitle>
-
-<MudText Typo="Typo.h3" GutterBottom="true">You are authenticated</MudText>
-
+<PageTitle>My Clients</PageTitle>
 <AuthorizeView>
     <MudText Class="mb-4">Hello @context.User.Identity?.Name!</MudText>
     <MudGrid>
+        @if (!_clients.Any())
+        {
+            <MudItem>
+                <MudText Typo="Typo.body1" Color="Color.Error">There are no clients assigned to you, please contact your manager.</MudText>
+            </MudItem>
+        }
         @foreach (var client in _clients)
         {
             <MudItem sm="6" lg="3" xxl="2">
@@ -23,15 +26,15 @@
                         <CardHeaderContent>
                             <MudText Typo="Typo.h6">
                                 @client.FullName
-                                @switch (client.GenderEnum)
+                                @switch (client.Gender)
                                 {
-                                    case GenderEnum.Male:
+                                    case Gender.Male:
                                         <MudIcon Size="Size.Medium" Icon="@Icons.Material.Filled.Male"></MudIcon>
                                         break;
-                                    case GenderEnum.Female:
+                                    case Gender.Female:
                                         <MudIcon Size="Size.Medium" Icon="@Icons.Material.Filled.Female"></MudIcon>
                                         break;
-                                    case GenderEnum.Other:
+                                    case Gender.Other:
                                     default:
                                         <MudIcon Size="Size.Medium" Icon="@Icons.Material.Filled.Transgender"></MudIcon>
                                         break;

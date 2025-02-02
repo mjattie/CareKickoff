@@ -1,17 +1,16 @@
 using System.Security.Claims;
 using System.Text.Json;
+using ClientDataViewer.Components.Account.Pages;
+using ClientDataViewer.Components.Account.Pages.Manage;
+using ClientDataViewer.Data.Authentication;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
-using ClientDataViewer.Components.Account.Pages;
-using ClientDataViewer.Components.Account.Pages.Manage;
-using ClientDataViewer.Data;
-using ClientDataViewer.Data.Authentication;
 
-namespace Microsoft.AspNetCore.Routing;
+namespace ClientDataViewer.Components.Account;
 
 internal static class IdentityComponentsEndpointRouteBuilderExtensions
 {

@@ -1,19 +1,22 @@
-﻿using ClientDataViewer.Data.Client;
+﻿using ClientDataViewer.Shared;
+using ClientDataViewer.Shared.Models;
 
 namespace ClientDataViewer.Client.Pages;
 
 public partial class Clients
 {
-    private readonly IClientRepository _clientRepository;
-    private Data.Client.Client[] _clients = [];
+    private readonly ClientDataViewerHttpClient _httpClient;
+    private IEnumerable<ClientDto> _clients = [];
 
-    public Clients(IClientRepository clientRepository)
+    public Clients(ClientDataViewerHttpClient httpClient)
     {
-        _clientRepository = clientRepository;
+        _httpClient = httpClient;
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _clients = _clientRepository.Get();
+        _clients = await _httpClient.GetAll();
     }
+    
+    
 }

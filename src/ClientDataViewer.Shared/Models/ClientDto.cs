@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
+﻿namespace ClientDataViewer.Shared.Models;
 
-namespace ClientDataViewer.Data.Client;
-
-public record Client(string FirstName, string LastName, DateTime BirthDate, string Gender, string NativeId)
+public record ClientDto(string FirstName, string LastName, DateTime BirthDate, Gender Gender, string NativeId)
 {
     public string FullName => $"{FirstName} {LastName}";
     public string Initial => FirstName.First().ToString();

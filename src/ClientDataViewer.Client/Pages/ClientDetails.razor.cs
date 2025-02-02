@@ -1,33 +1,27 @@
-﻿using ClientDataViewer.Data.CarePlan;
-using ClientDataViewer.Data.Client;
-using ClientDataViewer.Data.Report;
+﻿using ClientDataViewer.Shared;
+using ClientDataViewer.Shared.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace ClientDataViewer.Client.Pages;
 
 public partial class ClientDetails
 {
+    private readonly ClientDataViewerHttpClient _httpClient;
     [Parameter] public string ClientId { get; set; }
-    private readonly IClientRepository _clientRepository;
-    private readonly IReportRepository _reportRepository;
-    private readonly ICarePlanRepository _carePlanRepository;
-    private Data.Client.Client _client;
-    private CarePlan[] _carePlans;
-    private Report[] _reports;
+    private ClientDto _client;
+    private CarePlanDto[] _carePlans = [];
+    private ReportDto[] _reports = [];
 
-    public ClientDetails(IClientRepository clientRepository, IReportRepository reportRepository,
-        ICarePlanRepository carePlanRepository)
+    public ClientDetails(ClientDataViewerHttpClient httpClient)
     {
-        _clientRepository = clientRepository;
-        _reportRepository = reportRepository;
-        _carePlanRepository = carePlanRepository;
+        _httpClient = httpClient;
     }
 
-    protected override Task OnParametersSetAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        _client = _clientRepository.GetById(ClientId);
-        _carePlans = _carePlanRepository.GetByClientId(ClientId);
-        _reports = _reportRepository.GetByClientId(ClientId);
-        return base.OnParametersSetAsync();
+        var clientDetails = await _httpClient.GetClientDetails(ClientId);
+        _client = clientDetails.Client;
+        _carePlans = clientDetails.CarePlans.ToArray();
+        _reports = clientDetails.Reports.ToArray();
     }
 }
