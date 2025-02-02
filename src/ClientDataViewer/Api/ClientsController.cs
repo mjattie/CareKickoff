@@ -37,7 +37,8 @@ public class ClientsController : Controller
         var authorizationResult = await _authorizationService.AuthorizeAsync(User, id, "ClientAccess");
         if (!authorizationResult.Succeeded)
         {
-            return Forbid();
+            // should be Forbid, but this causes a redirect in the client side api caller
+            return NotFound();
         }
         
         return Ok(_clientService.GetClientDetails(id));

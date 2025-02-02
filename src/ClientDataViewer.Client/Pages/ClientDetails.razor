@@ -60,11 +60,15 @@
             </MudCardContent>
         </MudItem>
 </MudGrid>
-<MudItem xs="12">
-    <MudButton Href="@("/clients")" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Default">Go Back</MudButton>
-</MudItem>
 }
 else
 {
-    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    @if (_notFound)
+    {
+        <MudText Typo="@Typo.body1" Color="Color.Error">Not found</MudText>
+    }
+
 }
+<MudItem xs="12">
+    <MudButton Href="@("/clients")" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Default">Go Back</MudButton>
+</MudItem>

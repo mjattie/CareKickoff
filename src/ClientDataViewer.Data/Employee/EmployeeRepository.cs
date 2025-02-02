@@ -4,7 +4,7 @@ public class EmployeeRepository() : RepositoryWithJsonFileSource<Employee>("empl
 {
     public string[] GetEmployeeUserIds(string? userName)
     {
-        return Entities.SingleOrDefault(x => x.Name == userName)?.AuthorizedClients ?? [];
+        return Entities.SingleOrDefault(x => x.Name.Equals(userName, StringComparison.InvariantCultureIgnoreCase))?.AuthorizedClients ?? [];
     }
     
     public string[] GetEmployeeUserIdsByUserEmail(string userEmail)

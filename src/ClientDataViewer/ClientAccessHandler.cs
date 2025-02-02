@@ -15,18 +15,21 @@ public class ClientAccessHandler : AuthorizationHandler<ClientAccessRequirement,
     protected override async Task HandleRequirementAsync(
         AuthorizationHandlerContext context, ClientAccessRequirement requirement, string clientId)
     {
-        var firstPartOfEmail = context.User.Identity?.Name;
-        if (firstPartOfEmail is null)
+        var email = context.User.Identity?.Name;
+        if (email is null)
         {
             context.Fail();
             return;
         }
         
-        var allowedClients = _employeeRepository.GetEmployeeUserIdsByUserEmail(firstPartOfEmail);
+        var allowedClients = _employeeRepository.GetEmployeeUserIdsByUserEmail(email);
         
         if (allowedClients.Any(c => c == clientId))
         {
             context.Succeed(requirement);
+            return;
         }
+
+        context.Fail();
     }
 }
